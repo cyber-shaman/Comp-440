@@ -1,0 +1,173 @@
+
+<form >
+  <div class="grid gap-6 mb-6 md:grid-cols-2">
+    <div>
+      <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Age:</label>
+      <input type="number" id="number-input" name="Age" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" required />
+    </div> 
+    <div>
+      <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Gender:</label>
+      <input type="text" id="last_name" name="Gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="N/A" required />
+  </div>
+  <div>
+    <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current Weight in pounds</label>
+    <input type="number" id="number-input"  name="Current_weight" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" required />
+    </div>
+  
+  <div>
+    <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Desired Weight in pounds</label>
+    <input type="number" id="number-input" name="Desired_weight" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" required />
+    </div>
+      <div>
+          <label for="Dietary Restrictions" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dietary Restrictions</label>
+          <input type="text" id="Dietary Restrictions" name="Diet_restrictions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="N/A" required />
+      </div>
+      <div>
+          <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Disliked Foods:</label>
+          <input type="text" id="last_name" name="Disliked_Foods" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="N/A" required />
+      </div>
+      <div>
+          <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preferred Foods</label>
+          <input type="text" id="company" name="Preferred_food" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="N/A" required />
+      </div>  
+      <div>
+          <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Health Conditions:</label>
+          <input type="text" id="company" name="Health_conditions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="N/A" required />
+      </div>
+      <div>
+        <label for="exercise-frequency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">How often do you Exercise</label>
+        <select id="exercise-frequency" name="exercise_frequency" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          <option value="">Select option</option>
+          <option value="once_a_week">Once a week</option>
+          <option value="2_3_times_a_week">2-3 times a week</option>
+          <option value="3_4_times_a_week">3-4 times a week</option>
+          <option value="every_day">Every day</option>
+        </select>
+      </div>
+   
+<!-- Dropdown menu -->
+<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+    <li>
+      <a href="#" class="dropdown-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Once a week</a>
+    </li>
+    <li>
+      <a href="#" class="dropdown-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">2-3 times a week</a>
+    </li>
+    <li>
+      <a href="#" class="dropdown-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">3-4 times a week</a>
+    </li>
+    <li>
+      <a href="#" class="dropdown-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Every day</a>
+    </li>
+  </ul>
+</div>
+
+<div>
+  <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Weekly Budget:</label>
+  <input type="number" id="number-input" name="Weekly_budget" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" required />
+</div> 
+
+  
+  </div>
+  
+  <div class="flex items-start mb-6">
+    <div class="flex items-center h-5">
+    <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
+    </div>
+    <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.</label>
+</div>
+
+<label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Anything else you'd like us to consider?</label>
+<textarea id="message" name="extra_information" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+<button id="submittionButton" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+
+</form>
+
+
+
+
+
+
+<script>
+  // Get the button and dropdown menu
+  const button = document.getElementById('dropdownDefaultButton');
+  const dropdownOptions = document.querySelectorAll('.dropdown-option');
+
+  // Add event listeners to each dropdown option
+  dropdownOptions.forEach(option => {
+    option.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Update button text
+      button.textContent = this.textContent;
+      // Add the SVG arrow to the button
+      button.innerHTML += '<svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>';
+      // Hide the dropdown menu
+      document.getElementById('dropdown').classList.add('hidden');
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(form);
+        const plainFormData = Object.fromEntries(formData.entries());
+        const csrfToken = getCookie('csrftoken'); // Fetch the CSRF token from cookies
+        
+        // Log data to be sent
+        console.log('Sending:', JSON.stringify(plainFormData), 'CSRF Token:', csrfToken);
+
+        setTimeout(() => {
+        fetch('/receiveData', { // Replace '/receiveData' with your actual data endpoint
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken // Include CSRF token in the request header
+            },
+            body: JSON.stringify(plainFormData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                // If the server response wasn't ok, throw an error
+                return response.text().then(text => { throw new Error(text || 'Server responded with an error') });
+            }
+            return response.json(); // Parse JSON response
+        })
+        .then(data => {
+            localStorage.setItem('mealPlanData', data);
+            console.log('Success:', data);
+            window.location.href = '/success';
+            // Here you can redirect to another page or display a message
+        })
+        .catch(error => {
+            // Log the error message
+            console.error('Error:', error.message);
+        });
+        }, 300); // Corrected to a 3-second delay
+    });
+
+    // Helper function to get the CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+
+  
+  </script>

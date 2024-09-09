@@ -1,0 +1,9 @@
+Django>4.1,<4.2
+psycopg2-binary
+dj-database-url
+python-decouple
+requests
+djangorestframework
+django-cors-headers
+openai
+

@@ -1,0 +1,99 @@
+<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">This is your Weekly meal</span>
+
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Day
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    breakFast
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    lunch
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    dinner
+                </th>
+            </tr>
+        </thead>
+        <tbody id="mealPlanTable">
+
+        </tbody>
+    </table>
+</div>
+
+<!-- This is on your success.html page or equivalent -->
+
+<script>
+function updateTableWithMealPlan(mealPlanData) {
+  const tableBody = document.getElementById('mealPlanTable');
+  tableBody.innerHTML = ''; // Clear existing table data
+
+  if (mealPlanData && mealPlanData['7_day_diet_plan']) {
+    Object.keys(mealPlanData['7_day_diet_plan']).forEach(dayKey => {
+      const dayPlan = mealPlanData['7_day_diet_plan'][dayKey];
+      
+      // Create the row with Tailwind CSS classes for styling
+      const row = document.createElement('tr');
+      row.className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600";
+      
+      // Create the day cell with Tailwind CSS classes
+      const dayCell = document.createElement('th');
+      dayCell.scope = "row";
+      dayCell.className = "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white";
+      dayCell.textContent = getDayName(dayKey.replace(/"|\_/g, ' ').trim()); // Convert dayKey to actual day name
+      
+      // Append the day cell to the row
+      row.appendChild(dayCell);
+
+      // Create and append the breakfast cell
+      const breakfastCell = document.createElement('td');
+      breakfastCell.className = "px-6 py-4";
+      breakfastCell.textContent = dayPlan["Breakfast"];
+      row.appendChild(breakfastCell);
+
+      // Create and append the lunch cell
+      const lunchCell = document.createElement('td');
+      lunchCell.className = "px-6 py-4";
+      lunchCell.textContent = dayPlan["Lunch"];
+      row.appendChild(lunchCell);
+
+      // Create and append the dinner cell
+      const dinnerCell = document.createElement('td');
+      dinnerCell.className = "px-6 py-4";
+      dinnerCell.textContent = dayPlan["Dinner"];
+      row.appendChild(dinnerCell);
+
+      // Append the fully created row to the table body
+      tableBody.appendChild(row);
+    });
+  } else {
+    console.error('The "7_day_diet_plan" property does not exist in the data:', mealPlanData);
+  }
+}
+
+// Helper function to convert "Day_1" to "Monday", etc.
+function getDayName(dayKey) {
+  // Implement your logic for converting dayKey to actual day name
+  const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const index = parseInt(dayKey.replace('Day_', '')) - 1;
+  return dayNames[index] || dayKey;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const storedData = localStorage.getItem('mealPlanData');
+  if (storedData) {
+    const mealPlanData = JSON.parse(storedData);
+    console.log('Meal plan data retrieved:', mealPlanData); // Log the data for debugging
+    updateTableWithMealPlan(mealPlanData);
+  } else {
+    console.error('No meal plan data found in local storage.');
+  }
+});
+
+
+  </script>
+  
