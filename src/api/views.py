@@ -19,7 +19,7 @@ import requests
 import json
 import os
 from openai import OpenAI
-client = OpenAI(api_key=os.environ['OPENAI_SECRET_KEY'])
+#client = OpenAI(api_key=os.environ['OPENAI_SECRET_KEY'])
 # @api_view(['GET'])
 # def get_Data(request):
 #     #person = {'name':'danis'}
