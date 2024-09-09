@@ -11,7 +11,7 @@
 ```bash
 mkdir -p ~/dev
 cd ~/dev
-git clone https://github.com/cyber-shaman/Comp-440.git
+git clone []
 cd ....
 ```
 
