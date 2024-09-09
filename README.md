@@ -11,9 +11,8 @@
 ```bash
 mkdir -p ~/dev
 cd ~/dev
-git clone https://github.com/codingforentrepreneurs/micro-ecommerce
-cd micro-ecommerce
-git checkout start
+git clone https://github.com/cyber-shaman/Comp-440.git
+cd ....
 ```
 
 To install packages and run various command shortcuts, we use [rav](https://github.com/jmitchel3/rav). Open `rav.yaml` to see the various commands available if you prefer to not use `rav`.
