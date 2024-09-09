@@ -1,4 +1,4 @@
-# AI Coach
+# Comp 440
 
 ## Prerequisites
 - Python experience with [30 Days of Python](https://www.codingforentrepreneurs.com/courses/30-days-python-38/) or similiar
