@@ -6,4 +6,4 @@ requests
 djangorestframework
 django-cors-headers
 openai
-
+python-decouple
