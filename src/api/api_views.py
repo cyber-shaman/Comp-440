@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import CustomUser
 from .serializers import UserSerializer
 from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
 
 from .models import CustomUser
 
@@ -21,7 +22,8 @@ def api_signup(request):
         return Response({'error': 'Email is already in use'}, status=status.HTTP_400_BAD_REQUEST)
     if CustomUser.objects.filter(username=data.get('username')).exists():
         return Response({'error': 'Username is already in use'}, status=status.HTTP_400_BAD_REQUEST)
-
+    if CustomUser.objects.filter(phoneNumber=data.get('phoneNumber')).exists():
+        return Response({'error': 'Phone number is already in use'}, status=status.HTTP_400_BAD_REQUEST)
     # Serialize and validate the input data
     serializer = UserSerializer(data=data)
     if serializer.is_valid():
@@ -37,15 +39,25 @@ def api_signup(request):
     #return Response("User created successfully", status=status.HTTP_201_CREATED)
 
 
-# @api_view(['POST'])
-# def api_login(request):
-#     user = get_object_or_404(User, username=request.data['username'])
-#     if not user.check_password(request.data['password']):
-#         return Response("Invalid credentials", status=status.HTTP_400_BAD_REQUEST)
-#     token, created = Token.objects.get_or_create(user=user)
-#     serializer = UserSerializer(user)
-#     return Response({'token': token.key, 'user': serializer.data})
+@api_view(['POST'])
+def api_login(request):
+    data = request.data
+    email = data.get('email')
+    password = data.get('password')
 
-# @api_view(['GET'])
-# def test_token(request):
-#     return Response("Token authentication passed")
+    # Check if email exists in the CustomUser model
+    try:
+        user = CustomUser.objects.get(email=email)
+    except CustomUser.DoesNotExist:
+        return Response({'error': "Gmail doesn't exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Check if password is correct
+    user = authenticate(request, username=user.username, password=password)
+    
+    if user is not None:
+        # Authentication successful, generate or retrieve the token
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key, 'user': user.username}, status=status.HTTP_200_OK)
+    else:
+        # Email exists, but password is incorrect
+        return Response({'error': 'Password is not correct'}, status=status.HTTP_400_BAD_REQUEST)
