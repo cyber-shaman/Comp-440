@@ -26,12 +26,3 @@ venv/bin/rav run installs
 rav run freeze
 ```
 
-
-_Windows Users_
-```powershell
-c:\Python310\python.exe -m venv venv
-.\venv\Scripts\activate
-python -m pip install pip pip-tools rav --upgrade
-rav run win_installs
-rav run win_freeze
-```
