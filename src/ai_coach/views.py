@@ -18,3 +18,9 @@ def survey(request):
 
 def account_created(request):
     return render(request, "account_created.html")
+
+def bookRoom(request):
+    return render(request, "bookRoom.html")
+
+def hostRoom(request):
+    return render(request, "hostRoom.html")

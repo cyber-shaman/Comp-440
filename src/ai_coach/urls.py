@@ -26,6 +26,8 @@ urlpatterns = [
     path('signup',views.signup_view),
     path('survey',views.survey),
     path('account_created',views.account_created),
+    path('bookRoom',views.bookRoom),
+    path('hostRoom',views.hostRoom),
 
     path('', include('api.urls')),
 ]
