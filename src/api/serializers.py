@@ -6,7 +6,7 @@
 #         model = Product
 #         fields = '__all__'
 from rest_framework import serializers
-from .models import CustomUser  # Import your custom user model
+from .models import CustomUser , RentalUnit, Feature # Import your custom user model
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -26,3 +26,17 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])  # Hash the password
         user.save()
         return user
+
+
+class FeatureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feature
+        fields = ['id', 'name']
+
+class RentalUnitSerializer(serializers.ModelSerializer):
+    features = serializers.ListField(child=serializers.CharField(), write_only=True)
+
+    class Meta:
+        model = RentalUnit
+        fields = ['id', 'title', 'description', 'price', 'features', 'created_by', 'created_at']
+        read_only_fields = ['created_by', 'created_at']

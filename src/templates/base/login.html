@@ -46,7 +46,12 @@
               alert("Login successful!");
               console.log(data.token);
               // Optionally, redirect to another page
-              window.location.href = '/account_created'; // Change this to your desired page
+              //localStorage.setItem('auth_token', data.token);
+              //window.location.href = '/account_created'; // Change this to your desired using the href attribute
+             // window.location.assign('/account_created'); // change this to your desired using the assign method
+              localStorage.setItem('auth_token', data.token);
+              window.location.href = `/account_created?token=${data.token}`;
+
           } else {
               // Handle login errors
               alert("Login failed: " + JSON.stringify(data));

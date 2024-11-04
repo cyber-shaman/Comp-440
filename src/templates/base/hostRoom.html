@@ -1,116 +1,102 @@
+<section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Host a Room!</h1>
+        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Please insert the following information ** note only hosting per days are allowed</p>
+    </div>
+</section>
 
-<form>
+<form id="rentalForm" onsubmit="submitForm(event)">
     <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
-            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
-            <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+            <input type="text" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g., Cozy Mountain Cabin" required />
         </div>
         <div>
-            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
-            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
-        </div>
-        <div>
-            <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-            <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
-        </div>  
-        <div>
-            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-            <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
-        </div>
-        <div>
-            <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website URL</label>
-            <input type="url" id="website" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="flowbite.com" required />
-        </div>
-        <div>
-            <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unique visitors (per month)</label>
-            <input type="number" id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+            <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
+            <input type="text" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g., Los Angeles" required />
         </div>
     </div>
-    <div class="mb-6">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-        <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required />
-    </div> 
-    <div class="mb-6">
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-        <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
-    </div> 
-    <div class="mb-6">
-        <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-        <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
-    </div> 
-    <div class="flex items-start mb-6">
-        <div class="flex items-center h-5">
-        <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
-        </div>
-        <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.</label>
+    <div class="mb-5">
+        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+        <input type="text" id="description" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g., A cozy cabin with beautiful mountain views" required />
     </div>
-    <div>
-        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
-        <input type="text" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your location" required list="locationSuggestions"/>
-        <button type="button" id="detectLocation" class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 mt-2 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">Detect Location</button>
-        <datalist id="locationSuggestions"></datalist>
+    <div class="mb-5">
+        <label for="features" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Features</label>
+        <input type="text" id="features" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g., Wi-Fi, Internet, Water, Electricity" required />
     </div>
-</div>
+    <div class="relative w-full mb-6">
+        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+        <input type="number" id="price" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter amount" required />
+    </div>
     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 </form>
 
 <script>
-    // JavaScript to detect user location
-    document.getElementById("detectLocation").addEventListener("click", function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        // On /account_created page
+
+const urlParamstwo = new URLSearchParams(window.location.search);
+const token = urlParamstwo.get('token');
+
+// Use the token for further operations if needed
+if (token) {
+    // Set token in localStorage or perform an authenticated request
+    localStorage.setItem('auth_token', token);
+}
+
+
+async function submitForm(event) {
+
+    event.preventDefault();  // Prevent traditional form submission
+
+    // Collect data from form fields
+    const title = document.getElementById('title').value;
+    const location = document.getElementById('location').value;
+    const description = document.getElementById('description').value;
+    const price = parseFloat(document.getElementById('price').value);
+    const features = document.getElementById('features').value
+        .split(',')
+        .map(feature => feature.trim())
+        .filter(feature => feature);
+
+    // Construct payload
+    const payload = {
+        title: title,
+        location: location,
+        description: description,
+        price: price,
+        features: features
+    };
+
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+        alert("You must be logged in to perform this action.");
+        return;
+    }
+
+    try {
+        // Send data to API with token in the Authorization header
+        const response = await fetch('api/add_rental_unit/', {  
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`  // Include the token here
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert("Rental unit added successfully!");
+            document.getElementById('rentalForm').reset();
         } else {
-            alert("Geolocation is not supported by this browser.");
+            const errorData = await response.json();
+            alert("Failed to add rental unit: " + errorData.error);
         }
-    });
-
-    function showPosition(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        
-        // You can use a geocoding API to convert lat/lon to a human-readable address
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("location").value = data.display_name;
-            })
-            .catch(error => console.error("Error:", error));
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
     }
+}
 
-    function showError(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                alert("User denied the request for Geolocation.");
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert("Location information is unavailable.");
-                break;
-            case error.TIMEOUT:
-                alert("The request to get user location timed out.");
-                break;
-            case error.UNKNOWN_ERROR:
-                alert("An unknown error occurred.");
-                break;
-        }
-    }
-
-    // Suggest location as user types (using a local list as an example)
-    const locationInput = document.getElementById("location");
-    locationInput.addEventListener("input", function() {
-        const query = locationInput.value;
-        if (query.length > 2) {
-            // Replace with your autocomplete API if available
-            fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`)
-                .then(response => response.json())
-                .then(data => {
-                    const suggestionList = document.getElementById("locationSuggestions");
-                    suggestionList.innerHTML = "";
-                    data.forEach(item => {
-                        const option = document.createElement("option");
-                        option.value = item.display_name;
-                        suggestionList.appendChild(option);
-                    });
-                });
-        }
-    });
 </script>
