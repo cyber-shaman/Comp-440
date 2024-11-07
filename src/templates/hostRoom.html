@@ -14,7 +14,7 @@
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
-    {% include 'base/navbar.html' %}
+    {% include 'base/navBarLoggedIn.html' %}
 
     <div class="container mx-auto mt-4 min-h-screen">
        
@@ -38,15 +38,22 @@
 </html>
 
 <script>
+    // On page load, check if token exists in localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+            console.log('User is logged in with token:', token);
+        } else {
+            console.log('No token found. User is not logged in.');
+        }
+    });
+
     // On the new page where token is required
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     
     // Use the token for further operations if needed
     if (token) {
-        // Set token in localStorage or perform an authenticated request
         localStorage.setItem('auth_token', token);
     }
-    
-    </script>
-    
+</script>

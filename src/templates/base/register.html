@@ -75,7 +75,9 @@
                 // Handle success (e.g., redirect to another page or show success message)
                 alert("Signup successful!");
                 // Optionally, redirect to the login page or another route
-                window.location.href = '/account_created';
+                //window.location.href = '/account_created';
+                localStorage.setItem('auth_token', data.token);
+                window.location.href = `/account_created?token=${data.token}`;
             } else {
                 // Handle errors (e.g., display them to the user)
                 alert("Error: " + JSON.stringify(data));

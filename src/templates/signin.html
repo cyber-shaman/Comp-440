@@ -26,6 +26,19 @@
 
     {% include 'base/footer.html' %}
     {% include 'base/js.html' %}
+    
+    <script>
+        // On page load, check if token exists in localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('auth_token');
+            if (token) {
+                // Optionally, you can perform an authenticated request to verify the token
+                console.log('User is logged in with token:', token);
+            } else {
+                console.log('No token found. User is not logged in.');
+            }
+        });
+    </script>
      
 </body>
 
