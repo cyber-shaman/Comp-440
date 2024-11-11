@@ -29,9 +29,11 @@ function navigateWithToken(targetUrl) {
         window.location.href = '/login'; // Redirect to login if no token is found
         return;
     }
+   // console.log("token is here" + data.token);
 
     // Use the token as a URL parameter for redirection
-    window.location.href = `/${targetUrl}?token=${token}`;
+    // window.location.href = `/${targetUrl}?token=${token}`;
+    window.location.href = `/${targetUrl}`;
     localStorage.setItem('auth_token', token);
 
 }

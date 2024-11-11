@@ -14,10 +14,45 @@
             <a href="survey" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Home</a>
           </li> -->
           <li>
-            <a href="signin" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Log out</a>
+            <a id="logoutButton" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Log out</a>
+          </li>
+          <li>
+            <a onclick="navigateWithToken('bookRoom')" id="bookRoom" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">HomeBooking</a>
+          </li>
+          <li>
+            <a onclick="navigateWithToken('hostRoom')" id="hostRoom" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">HostBooking</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+
+
+<script>
+    document.getElementById("logoutButton").addEventListener("click", function(event) {
+        console.log("Logout button clicked");
+  event.preventDefault(); // Prevents the default action if needed
+  localStorage.removeItem("auth_token"); // Deletes the 'token' key from localStorage
+  window.location.href = "signin"; // Redirects to the signin page
+});
+
+
+  function navigateWithToken(targetUrl) {
   
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+          alert("You need to log in first.");
+          window.location.href = '/login'; // Redirect to login if no token is found
+          return;
+      }
+     // console.log("token is here" + data.token);
+  
+      // Use the token as a URL parameter for redirection
+      // window.location.href = `/${targetUrl}?token=${token}`;
+      window.location.href = `/${targetUrl}`;
+      //localStorage.setItem('auth_token', token);
+  
+  }
+  
+  </script>

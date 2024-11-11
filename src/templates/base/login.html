@@ -50,7 +50,7 @@
               //window.location.href = '/account_created'; // Change this to your desired using the href attribute
              // window.location.assign('/account_created'); // change this to your desired using the assign method
               localStorage.setItem('auth_token', data.token);
-              window.location.href = `/account_created?token=${data.token}`;
+              window.location.href = `/account_created`;
 
           } else {
               // Handle login errors

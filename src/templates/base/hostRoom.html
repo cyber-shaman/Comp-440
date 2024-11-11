@@ -44,8 +44,61 @@ if (token) {
 }
 
 
-async function submitForm(event) {
+// async function submitForm(event) {
 
+//     event.preventDefault();  // Prevent traditional form submission
+
+//     // Collect data from form fields
+//     const title = document.getElementById('title').value;
+//     const location = document.getElementById('location').value;
+//     const description = document.getElementById('description').value;
+//     const price = parseFloat(document.getElementById('price').value);
+//     const features = document.getElementById('features').value
+//         .split(',')
+//         .map(feature => feature.trim())
+//         .filter(feature => feature);
+
+//     // Construct payload
+//     const payload = {
+//         title: title,
+//         location: location,
+//         description: description,
+//         price: price,
+//         features: features
+//     };
+//     console.log(payload);
+//     // Retrieve the token from localStorage
+//     const token = localStorage.getItem('auth_token');
+//     if (!token) {
+//         alert("You must be logged in to perform this action.");
+//         return;
+//     }
+
+//     try {
+//         // Send data to API with token in the Authorization header
+//         const response = await fetch('api/add_rental_unit/', {  
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Token ${token}`  // Include the token here
+//             },
+//             body: JSON.stringify(payload)
+//         });
+
+//         if (response.ok) {
+//             const data = await response.json();
+//             alert("Rental unit added successfully!");
+//             document.getElementById('rentalForm').reset();
+//         } else {
+//             const errorData = await response.json();
+//             alert("Failed to add rental unit: " + errorData.error);
+//         }
+//     } catch (error) {
+//         console.error("Error:", error);
+//         alert("An error occurred. Please try again.");
+//     }
+// }
+async function submitForm(event) {
     event.preventDefault();  // Prevent traditional form submission
 
     // Collect data from form fields
@@ -53,19 +106,20 @@ async function submitForm(event) {
     const location = document.getElementById('location').value;
     const description = document.getElementById('description').value;
     const price = parseFloat(document.getElementById('price').value);
-    const features = document.getElementById('features').value
+    const feature_names = document.getElementById('features').value
         .split(',')
         .map(feature => feature.trim())
         .filter(feature => feature);
 
-    // Construct payload
+    // Construct payload with feature_names
     const payload = {
         title: title,
         location: location,
         description: description,
         price: price,
-        features: features
+        feature_names: feature_names  // Use feature_names instead of features
     };
+    console.log(payload);  // Debugging: Check the payload in the console
 
     // Retrieve the token from localStorage
     const token = localStorage.getItem('auth_token');
@@ -76,7 +130,7 @@ async function submitForm(event) {
 
     try {
         // Send data to API with token in the Authorization header
-        const response = await fetch('api/add_rental_unit/', {  
+        const response = await fetch('/api/add_rental_unit/', {  
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
