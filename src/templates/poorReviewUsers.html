@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Users with Only Poor Reviews</title>
+</head>
+<body>
+    <h1>Users with Only Poor Reviews</h1>
+    <div id="userList"></div>
+
+    <script>
+        async function fetchUsersWithOnlyPoorReviews() {
+            const response = await fetch('/api/users_with_only_poor_reviews/');
+            const users = await response.json();
+
+            const userList = document.getElementById('userList');
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.textContent = `User ID: ${user.id}, Username: ${user.username}, Email: ${user.email}`;
+                userList.appendChild(userItem);
+            });
+        }
+        fetchUsersWithOnlyPoorReviews();
+    </script>
+</body>
+</html>

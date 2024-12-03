@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Most Expensive Rentals</title>
+</head>
+<body>
+    <h1>Most Expensive Rentals</h1>
+    <div id="rentalList"></div>
+    <script>
+        async function fetchExpensiveRentals() {
+            const response = await fetch('/api/most_expensive_rental_units/');
+            const rentals = await response.json();
+
+            const rentalList = document.getElementById('rentalList');
+            rentals.forEach(rental => {
+                const rentalItem = document.createElement('div');
+                rentalItem.textContent = `Title: ${rental.title}, Price: ${rental.price}`;
+                rentalList.appendChild(rentalItem);
+            });
+        }
+        fetchExpensiveRentals();
+    </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+
 class CustomUser(AbstractUser):
     phoneNumber = models.CharField(max_length=15, blank=True, null=True)
 
@@ -54,3 +55,23 @@ class RentalLimit(models.Model):
 
     class Meta:
         unique_together = ('user', 'date')
+
+
+class Review(models.Model):
+    RATINGS = [
+        ('excellent', 'Excellent'),
+        ('good', 'Good'),
+        ('fair', 'Fair'),
+        ('poor', 'Poor'),
+    ]
+    rental_unit = models.ForeignKey('RentalUnit', on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    rating = models.CharField(max_length=10, choices=RATINGS)
+    description = models.TextField()
+    date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('rental_unit', 'user')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.rating}"

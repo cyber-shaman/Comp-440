@@ -15,6 +15,12 @@ from .models import RentalUnit, Feature, RentalUnitFeature, RentalLimit
 from .serializers import RentalUnitSerializer, FeatureSerializer
 
 
+from django.db import models  # For model-related functions like Max, Count
+from django.shortcuts import render  # For rendering templates
+from rest_framework.response import Response  # For API responses
+from rest_framework.decorators import api_view  # For defining API views
+from rest_framework import status  # For HTTP status codes
+from .models import Review, CustomUser  # Import your models
 
 
 from .models import CustomUser
@@ -149,3 +155,81 @@ def search_rental_units(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def most_expensive_rental_units(request):
+    rental_units = (
+        RentalUnit.objects
+        .annotate(max_price=models.Max('price'))
+        .values('id', 'title', 'price')
+    )
+    return Response(rental_units, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def users_posted_two_rentals_with_features(request):
+    feature_x = request.GET.get('feature_x')
+    feature_y = request.GET.get('feature_y')
+
+    rentals = RentalUnit.objects.filter(
+        rentalunitfeature__feature__name__in=[feature_x, feature_y]
+    ).values('created_by', 'created_at')
+
+    return Response(rentals, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def rentals_with_positive_reviews(request):
+    user_id = request.GET.get('user_id')  # Get the user ID from the request
+    rentals = RentalUnit.objects.filter(
+        created_by_id=user_id,
+        reviews__rating__in=['excellent', 'good']
+    ).exclude(reviews__rating__in=['fair', 'poor']).distinct()
+
+    serializer = RentalUnitSerializer(rentals, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def most_rentals_on_date(request):
+    date = '2024-10-15'  # Hardcoded for the example; can be made dynamic
+    rentals = RentalUnit.objects.filter(
+        created_at__date=date
+    ).values('created_by').annotate(count=models.Count('id')).order_by('-count')
+
+    max_count = rentals[0]['count'] if rentals else 0
+    top_users = [rental['created_by'] for rental in rentals if rental['count'] == max_count]
+
+    return Response({'top_users': top_users, 'max_count': max_count}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def users_with_only_poor_reviews(request):
+    users = CustomUser.objects.filter(
+        reviews__rating='poor'
+    ).exclude(reviews__rating__in=['excellent', 'good', 'fair']).distinct()
+
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def users_with_no_poor_reviews(request):
+    users = CustomUser.objects.exclude(
+        rentalunit__reviews__rating='poor'
+    ).filter(rentalunit__isnull=False).distinct()
+
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+def most_expensive_rentals_view(request):
+    return render(request, 'mostExpensive.html')
+
+def rentals_with_features_view(request):
+    feature_x = request.GET.get('feature_x', '')
+    feature_y = request.GET.get('feature_y', '')
+    
+    # Query the database based on the features entered
+    rentals = RentalUnit.objects.filter(
+        rentalunitfeature__feature__name__in=[feature_x, feature_y]
+    ).distinct()
+    
+    context = {
+        'results': rentals,  # Passing the search results
+    }
+    
+    return render(request, 'twoRentalsWithFeatures.html', context)

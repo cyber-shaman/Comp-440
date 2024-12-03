@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rentals with Positive Reviews</title>
+</head>
+<body>
+    <h1>Rentals with Positive Reviews</h1>
+    <form id="userForm">
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" required />
+        <button type="submit">Search</button>
+    </form>
+    <div id="rentalList"></div>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const userId = document.getElementById('userId').value;
+
+            const response = await fetch(`/api/rentals_with_positive_reviews/?user_id=${userId}`);
+            const rentals = await response.json();
+
+            const rentalList = document.getElementById('rentalList');
+            rentalList.innerHTML = ''; // Clear previous results
+            rentals.forEach(rental => {
+                const rentalItem = document.createElement('div');
+                rentalItem.textContent = `Title: ${rental.title}, Price: ${rental.price}, Description: ${rental.description}`;
+                rentalList.appendChild(rentalItem);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'base/css.html' %}
+    
+    <title>{% block head_title %} Search Rentals{% endblock head_title %}</title>
+
+</head>
+
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    {% include 'base/navBarLoggedIn.html' %}
+
+    <div class="container mx-auto mt-4 min-h-screen">
+       
+        <h1>Users Posted Two Rentals With Features</h1>
+
+        <!-- Search Form -->
+        <form action="{% url 'api:users_posted_two_rentals_with_features' %}" method="get">
+            <div class="form-group">
+                <label for="feature_x">Feature X:</label>
+                <input type="text" class="form-control" id="feature_x" name="feature_x" placeholder="Enter feature X">
+            </div>
+            <div class="form-group">
+                <label for="feature_y">Feature Y:</label>
+                <input type="text" class="form-control" id="feature_y" name="feature_y" placeholder="Enter feature Y">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Display Results -->
+        {% if results %}
+            <div class="results mt-4">
+                <h3>Results:</h3>
+                <ul>
+                    {% for rental in results %}
+                        <li>{{ rental }}</li> <!-- Or format the result as you need -->
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+    </div>
+
+    {% include 'base/footer.html' %}
+    {% include 'base/js.html' %}
+
+</body>
+
+</html>
