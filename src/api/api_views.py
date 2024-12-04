@@ -186,23 +186,21 @@ def rentals_with_positive_reviews(request):
     serializer = RentalUnitSerializer(rentals, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-@api_view(['GET'])
-def most_rentals_on_date(request):
-    date = '2024-10-15'  # Hardcoded for the example; can be made dynamic
-    rentals = RentalUnit.objects.filter(
-        created_at__date=date
-    ).values('created_by').annotate(count=models.Count('id')).order_by('-count')
 
-    max_count = rentals[0]['count'] if rentals else 0
-    top_users = [rental['created_by'] for rental in rentals if rental['count'] == max_count]
+def most_rentals_on_date_view(request):
+    return render(request, 'mostRentalsOnDate.html')
 
-    return Response({'top_users': top_users, 'max_count': max_count}, status=status.HTTP_200_OK)
+
+def users_with_poor_reviews_view(request):
+    return render(request, 'usersWithPoorReviews.html')  # Ensure the template exists
 
 @api_view(['GET'])
-def users_with_only_poor_reviews(request):
+def users_with_poor_reviews(request):
     users = CustomUser.objects.filter(
-        reviews__rating='poor'
-    ).exclude(reviews__rating__in=['excellent', 'good', 'fair']).distinct()
+        review__rating='poor'
+    ).exclude(
+        review__rating__in=['excellent', 'good', 'fair']
+    ).distinct()
 
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)

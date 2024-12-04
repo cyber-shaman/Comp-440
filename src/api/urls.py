@@ -10,7 +10,7 @@ urlpatterns = [
     path('api/most_expensive/', api_views.most_expensive_rentals_view),  # Template rendering for the page
     path('api/two_rentals_with_features/', api_views.rentals_with_features_view),
     path('api/rentals_with_positive_reviews/', api_views.rentals_with_positive_reviews),
-    path('api/most_rentals_on_date/', api_views.most_rentals_on_date),
-    path('api/users_with_only_poor_reviews/', api_views.users_with_only_poor_reviews),
+    path('most_rentals_on_date/', api_views.most_rentals_on_date_view),
+    path('users_with_poor_reviews/', api_views.users_with_poor_reviews_view),
     path('api/users_with_no_poor_reviews/', api_views.users_with_no_poor_reviews),
 ]

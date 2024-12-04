@@ -14,7 +14,43 @@
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
-    {% include 'base/navBarLoggedIn.html' %}
+    <!-- New Navigation Bar -->
+    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+        <div class="container flex flex-wrap items-center justify-between mx-auto">
+            <!-- Logo Section -->
+            <a href="/" class="flex items-center">
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">HomeBooking</span>
+            </a>
+
+            <!-- Navbar Links -->
+            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="/most_expensive" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Most Expensive Rentals</a>
+                    </li>
+                    <li>
+                        <a href="/two_rentals_with_features" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Rentals with Features</a>
+                    </li>
+                    <li>
+                        <a href="/positive_reviews" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Positive Reviews</a>
+                    </li>
+                    <li>
+                        <a href="/most_rentals_on_date/" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            Top Posters on Date
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/users_with_poor_reviews/" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            Users with Poor Reviews
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/users_with_no_poor_reviews" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Users with No Poor Reviews</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="container mx-auto mt-4 min-h-screen">
        
@@ -28,24 +64,6 @@
     {% include 'base/footer.html' %}
     {% include 'base/js.html' %}
 
-
-
-
-
-     
 </body>
 
 </html>
-
-<!-- <script>
-// On the new page where token is required
-const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get('token');
-
-// Use the token for further operations if needed
-if (token) {
-    // Set token in localStorage or perform an authenticated request
-    localStorage.setItem('auth_token', token);
-}
-
-</script> -->
