@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User's Units with Positive Reviews</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body>
+    <h1 class="text-2xl font-bold text-center my-5">User's Units with Positive Reviews</h1>
+
+    <!-- User Selection Form -->
+    <form id="user-search-form" class="max-w-md mx-auto">
+        <label for="user-select" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Select a User
+        </label>
+        <div class="relative">
+            <select 
+                id="user-select" 
+                class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                required>
+                <option value="" disabled selected>Select a user</option>
+            </select>
+            <button 
+                type="submit" 
+                class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <!-- Results Table -->
+    <div class="relative overflow-x-auto mt-5">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Title</th>
+                    <th scope="col" class="px-6 py-3">Location</th>
+                    <th scope="col" class="px-6 py-3">Description</th>
+                    <th scope="col" class="px-6 py-3">Price</th>
+                    <th scope="col" class="px-6 py-3">Review Description</th>
+                    <th scope="col" class="px-6 py-3">Rank</th>
+                    <th scope="col" class="px-6 py-3">Reviewed By</th>
+                </tr>
+            </thead>
+            <tbody id="units-tbody">
+                <!-- Dynamic Rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('user-search-form');
+            const userSelect = document.getElementById('user-select');
+            const tbody = document.getElementById('units-tbody');
+
+            // Fetch the list of users and populate the dropdown
+            fetchUsers();
+
+            function fetchUsers() {
+                const url = '/api/get_users_with_units/';
+
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        data.forEach(user => {
+                            const option = document.createElement('option');
+                            option.value = user.id;
+                            option.textContent = user.name;
+                            userSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching users:', error);
+                        alert('Failed to load users. Please refresh the page.');
+                    });
+            }
+
+            // Handle form submission
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();  // Prevent traditional form submission
+
+                // Get the selected user ID
+                const userId = userSelect.value;
+
+                if (!userId) {
+                    alert('Please select a user.');
+                    return;
+                }
+
+                // Fetch and display the user's units with positive reviews
+                fetchUserUnitsWithPositiveReviews(userId);
+            });
+
+            function fetchUserUnitsWithPositiveReviews(userId) {
+    const url = '/api/user_units_with_positive_reviews/'; // Corrected endpoint path
+    const requestData = {
+        user_id: userId  // Pass user_id in the request body
+    };
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            tbody.innerHTML = '';  // Clear any existing rows
+
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">No rental units found.</td></tr>';
+                return;
+            }
+
+            data.forEach(unit => {
+                const row = document.createElement('tr');
+                row.classList.add('bg-white', 'border-b', 'dark:bg-gray-800', 'dark:border-gray-700');
+
+                row.innerHTML = `
+                    <td class="px-6 py-4">${unit.title || ''}</td>
+                    <td class="px-6 py-4">${unit.location || 'N/A'}</td>
+                    <td class="px-6 py-4">${unit.description || ''}</td>
+                    <td class="px-6 py-4">$${parseFloat(unit.price).toFixed(2) || '0.00'}</td>
+                    <td class="px-6 py-4">${unit.review_description || ''}</td>
+                    <td class="px-6 py-4">${unit.rank || ''}</td>
+                    <td class="px-6 py-4">${unit.reviewed_by || ''}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center text-red-500">Error fetching data. Please try again later.</td></tr>';
+        });
+}
+
+        });
+    </script>
+</body>
+</html>

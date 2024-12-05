@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Units by Reviews</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body>
+    {% include 'base/navBarLoggedIn.html' %}
+
+    <h1 class="text-2xl font-bold text-center my-5">Search Rental Units by Review Rating</h1>
+
+    <!-- Search Form -->
+    <form id="review-search-form" class="max-w-md mx-auto">
+        <label for="rating-select" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Select Review Rating
+        </label>
+        <div class="relative">
+            <select 
+                id="rating-select" 
+                class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                required>
+                <option value="" disabled selected>Select a rating</option>
+                <option value="excellent">Excellent</option>
+                <option value="good">Good</option>
+                <option value="fair">Fair</option>
+                <option value="poor">Poor</option>
+            </select>
+            <button 
+                type="submit" 
+                class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <!-- Results Table -->
+    <div class="relative overflow-x-auto mt-5">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Title</th>
+                    <th scope="col" class="px-6 py-3">Location</th>
+                    <th scope="col" class="px-6 py-3">Description</th>
+                    <th scope="col" class="px-6 py-3">Price</th>
+                    <th scope="col" class="px-6 py-3">Review Description</th>
+                    <th scope="col" class="px-6 py-3">Review Made By</th>
+                    <th scope="col" class="px-6 py-3">Hosted By</th>
+                </tr>
+            </thead>
+            <tbody id="rental-units-tbody">
+                <!-- Dynamic Rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('review-search-form');
+            const selectInput = document.getElementById('rating-select');
+            const tbody = document.getElementById('rental-units-tbody');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();  // Prevent traditional form submission
+
+                // Get the selected rating
+                const rating = selectInput.value;
+
+                if (!rating) {
+                    alert('Please select a rating.');
+                    return;
+                }
+
+                // Fetch and display the filtered rental units
+                fetchRentalUnits(rating);
+            });
+
+            function fetchRentalUnits(rating = '') {
+                const url = `/api/bad_reviews/?rating=${rating}`;
+                
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        tbody.innerHTML = '';  // Clear any existing rows
+
+                        if (data.length === 0) {
+                            tbody.innerHTML = '<tr><td colspan="7" class="text-center">No rental units found.</td></tr>';
+                            return;
+                        }
+
+                        data.forEach(unit => {
+                            const row = document.createElement('tr');
+                            row.classList.add('bg-white', 'border-b', 'dark:bg-gray-800', 'dark:border-gray-700');
+
+                            row.innerHTML = `
+                                <td class="px-6 py-4">${unit.title || ''}</td>
+                                <td class="px-6 py-4">${unit.location || 'N/A'}</td>
+                                <td class="px-6 py-4">${unit.description || ''}</td>
+                                <td class="px-6 py-4">$${parseFloat(unit.price).toFixed(2) || '0.00'}</td>
+                                <td class="px-6 py-4">${unit.review_description || ''}</td>
+                                <td class="px-6 py-4">${unit.review_made_by || ''}</td>
+                                <td class="px-6 py-4">${unit.hosted_by || ''}</td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching rental units:', error);
+                        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-red-500">Error fetching data. Please try again later.</td></tr>';
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
