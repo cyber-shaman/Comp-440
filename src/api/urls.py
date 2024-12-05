@@ -18,6 +18,8 @@ urlpatterns = [
 path('api/users_without_poor_reviews/', api_views.users_without_poor_reviews),
 path('api/users_without_poor_reviews_view/', api_views.users_without_poor_reviews_view),
 
+path('api/bookRoom_view/', api_views.bookRoom_view),
+
 
 path('api/user_units_with_positive_reviews/', api_views.user_units_with_positive_reviews),
 path('api/user_units_with_positive_reviews_view/', api_views.user_units_with_positive_reviews_view),

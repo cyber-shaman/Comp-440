@@ -282,6 +282,10 @@ def rentals_with_positive_reviews(request):
 def most_rentals_on_date_view(request):
     return render(request, 'mostRentalsOnDate.html')
 
+
+def bookRoom_view(request):
+    return render(request, 'bookRoom.html')
+
 def reviews(request):
     return render(request, 'badReview.html')
 
