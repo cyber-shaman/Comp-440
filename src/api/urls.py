@@ -25,8 +25,8 @@ path('api/user_units_with_positive_reviews/', api_views.user_units_with_positive
 path('api/user_units_with_positive_reviews_view/', api_views.user_units_with_positive_reviews_view),
     path('api/get_users_with_units/', api_views.get_users_with_units),
 
-
-
+path('api/users_two_units_same_day_view/', api_views.users_two_units_same_day_view),
+path('api/users_two_units_same_day/', api_views.users_two_units_same_day),
     # path('api/two_rentals_with_features/', api_views.rentals_with_features_view),
     # path('api/rentals_with_positive_reviews/', api_views.rentals_with_positive_reviews),
     path('api/most_rentals_on_date/', api_views.most_rentals_on_date_view),

@@ -318,6 +318,9 @@ def most_expensive_rentals_view(request):
 def users_without_poor_reviews_view(request):
     return render(request,'greatHosts.html')
 
+def users_two_units_same_day_view(request):
+    return render(request, 'twoUnitsSameDay.html')
+
 def rentals_with_features_view(request):
     feature_x = request.GET.get('feature_x', '')
     feature_y = request.GET.get('feature_y', '')
@@ -449,3 +452,42 @@ def get_users_with_units(request):
     ]
 
     return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def users_two_units_same_day(request):
+    feature_x = request.data.get('feature_x')
+    feature_y = request.data.get('feature_y')
+
+    if not feature_x or not feature_y:
+        return Response({"error": "Both features are required."}, status=400)
+
+    try:
+        feature_x_obj = Feature.objects.get(name=feature_x)
+        feature_y_obj = Feature.objects.get(name=feature_y)
+    except Feature.DoesNotExist:
+        return Response({"error": "One or both features do not exist."}, status=404)
+
+    # Query for all rental units containing feature X or Y
+    rentals_with_x = RentalUnit.objects.filter(features=feature_x_obj)
+    rentals_with_y = RentalUnit.objects.filter(features=feature_y_obj)
+
+    # Group users by posting day and ensure different units satisfy the criteria
+    valid_units = []
+    for user_id, date in rentals_with_x.values_list('created_by', 'created_at__date').distinct():
+        # Fetch all units posted by the user on this date
+        user_units_on_date_x = rentals_with_x.filter(created_by_id=user_id, created_at__date=date)
+        user_units_on_date_y = rentals_with_y.filter(created_by_id=user_id, created_at__date=date)
+
+        # Ensure at least one unit for X and one unit for Y exist and are different
+        if user_units_on_date_x.exists() and user_units_on_date_y.exists():
+            # Ensure units are distinct
+            for unit_x in user_units_on_date_x:
+                for unit_y in user_units_on_date_y:
+                    if unit_x.id != unit_y.id:
+                        valid_units.append(unit_x)
+                        valid_units.append(unit_y)
+
+    # Remove duplicates and serialize the results
+    valid_units = list(set(valid_units))
+    serializer = RentalUnitSerializer(valid_units, many=True)
+    return Response(serializer.data, status=200)
